@@ -11,8 +11,8 @@ REPORT_FILE=report_$(date +$REPORT_NAME_FORMAT).log
 #RECIP_ID="00000000"
 REPOSITORY=" "
 MOUNT_POINT=" "
-MOUNT_USER=" "
-MOUNT_PASSWORD=" "
+# MOUNT_USER=" "
+# MOUNT_PASSWORD=" "
 
 # Get Veeam job list
 
@@ -39,7 +39,9 @@ echo ------------------------------------------------------ >> $REPORT_FILE
 echo Stop check on $(date +$CURRENT_DATE_FORMAT) at $(date +$CURRENT_TIME_FORMAT) >> $REPORT_FILE
 echo "\n" >> $REPORT_FILE
 mkdir $MOUNT_POINT
-mount -t cifs -o user=$MOUNT_USER,password=$MOUNT_PASSWORD $REPOSITORY $MOUNT_POINT
+# if the repository owner is not root 
+# mount -t cifs -o user=$MOUNT_USER,password=$MOUNT_PASSWORD $REPOSITORY $MOUNT_POINT
+mount -t cifs $REPOSITORY $MOUNT_POINT
 echo ------------------------------------------------------ >> $REPORT_FILE
 echo -e "Check files in backup repository:\n" >> $REPORT_FILE
 ls -h $MOUNT_POINT >> $REPORT_FILE
@@ -53,7 +55,7 @@ rm -rf $MOUNT_POINT
 
 SEND_RESULT="$(echo -e "$(cat ${REPORT_FILE})")"
 
-# For send result to telegram
+# Send result to telegram
 # Uncomment the next line to send results to telegram
 # curl --silent --data "html&text=$SEND_RESULT" https://api.telegram.org/bot$TOKEN/sendMessage?chat_id=$RECIP_ID&parse_mode=
 
