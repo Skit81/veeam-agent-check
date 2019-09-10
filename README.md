@@ -16,8 +16,10 @@ MOUNT_PASSWORD=" " # if the repository owner is not root
 
 
 For report in telegram:
-#TOKEN="000000000:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" #Telegram bot token
-#RECIP_ID="00000000" #Telegram user or chat id
+
+TOKEN="000000000:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" #Telegram bot token
+
+RECIP_ID="00000000" #Telegram user or chat id
 
 3. chmod +x check_veeam_backup.sh
 
