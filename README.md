@@ -7,9 +7,13 @@ Bash script for check result job veeam agent linux
 2. nano check_veeam_backup.sh
 
 REPOSITORY=" " # path to repository
+
 MOUNT_POINT=" " # local mount point
+
 MOUNT_USER=" " # if the repository owner is not root
+
 MOUNT_PASSWORD=" " # if the repository owner is not root
+
 
 For report in telegram:
 #TOKEN="000000000:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" #Telegram bot token
