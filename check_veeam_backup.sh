@@ -29,8 +29,13 @@ for JOB in $JOB_LIST
         done
 echo -e "------------------------------------------------------\n\n\n" >> $REPORT_FILE
 
-# Send result to telegram
+# Send result to telegram if Veeam backup job filed
 
-SEND_RESULT="$(echo -e "$(cat ${REPORT_FILE})")"
-curl --silent --data "html&text=$SEND_RESULT" https://api.telegram.org/bot$TOKEN/sendMessage?chat_id=$RECIP&parse_mode=
-rm -rf $REPORT_FILE #Delete log file
+if [ "$(veeamconfig session info --id $LAST_JOB_RESULT | grep State | cut -d: -f2 | tr -d ' ')" = "Success" ]
+then
+	rm -rf $REPORT_FILE #Delete log file
+else
+	SEND_RESULT="$(echo -e "$(cat ${REPORT_FILE})")"
+	curl --silent --data "html&text=$SEND_RESULT" https://api.telegram.org/bot$TOKEN/sendMessage?chat_id=$RECIP&parse_mode=
+	rm -rf $REPORT_FILE #Delete log file
+fi
